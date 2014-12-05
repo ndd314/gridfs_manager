@@ -1,2 +1,4 @@
 language: ruby
 rvm: 2.1.5
+notifications:
+  slack: sjsu-microct-fall2014:XhZZy78dZ6b1vsGgavo0Yx66
