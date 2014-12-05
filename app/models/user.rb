@@ -5,6 +5,8 @@ class User
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
+  has_many :folders
+
   def self.serialize_into_session(record)
     [record.id.to_s, record.authenticatable_salt]
   end
