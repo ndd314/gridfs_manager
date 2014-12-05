@@ -5,6 +5,10 @@ class User
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
+  def self.serialize_into_session(record)
+    [record.id.to_s, record.authenticatable_salt]
+  end
+
   ## Database authenticatable
   field :email,              type: String, default: ""
   field :encrypted_password, type: String, default: ""
