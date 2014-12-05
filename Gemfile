@@ -2,6 +2,8 @@ ruby '2.1.5'
 
 source 'https://rubygems.org'
 
+gem 'autoprefixer-rails'
+gem 'bootstrap-sass', '~> 3.3.1'
 gem 'bson_ext'
 gem 'devise'
 gem "haml-rails"
@@ -9,7 +11,9 @@ gem 'jquery-rails'
 gem 'jbuilder', '~> 2.0'
 gem 'mongoid'
 gem 'rails', '4.1.8'
+gem 'sass-rails', '>= 3.2'
 gem 'sendgrid'
+gem 'sprockets-rails'
 gem 'thin'
 gem 'turbolinks'
 gem 'uglifier', '>= 1.3.0'
