@@ -3,6 +3,7 @@ ruby '2.1.5'
 source 'https://rubygems.org'
 
 gem 'devise'
+gem "haml-rails"
 gem 'jquery-rails'
 gem 'jbuilder', '~> 2.0'
 gem 'mongoid'
