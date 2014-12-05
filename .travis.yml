@@ -2,3 +2,7 @@ language: ruby
 rvm: 2.1.5
 notifications:
   slack: sjsu-microct-fall2014:XhZZy78dZ6b1vsGgavo0Yx66
+deploy:
+  provider: heroku
+  api_key:
+    secure: HMsyKqAApy/f5c0YmsiA6UXpsRMMxc5ZW/CW79drmxP2pIl9tWHbPFVQzd8Wce6czxQ59rKmLXPEFAfgqhi4dGijV/4qV+7zhNcdg9ykGKKuV6VaHybFUQnrt1lg8EjZrbtvFSthuyMqhaBp3RzTDGJHJmajCYPCDJdjMTWKt+Q=
