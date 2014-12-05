@@ -18,6 +18,10 @@ gem 'thin'
 gem 'turbolinks'
 gem 'uglifier', '>= 1.3.0'
 
+group :production do
+  gem 'rails_12factor'
+end
+
 group :development, :test do
   gem 'factory_girl_rails'
   gem 'letter_opener'
