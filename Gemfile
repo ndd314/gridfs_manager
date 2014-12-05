@@ -9,6 +9,7 @@ gem 'mongoid'
 gem 'rails', '4.1.8'
 gem 'sendgrid'
 gem 'thin'
+gem 'turbolinks'
 
 group :development, :test do
   gem 'factory_girl_rails'
