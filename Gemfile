@@ -10,9 +10,11 @@ gem 'rails', '4.1.8'
 gem 'sendgrid'
 gem 'thin'
 gem 'turbolinks'
+gem 'uglifier', '>= 1.3.0'
 
 group :development, :test do
   gem 'factory_girl_rails'
+  gem 'letter_opener'
   gem 'rspec-rails', '~> 3.0'
   gem 'spring'
 end
