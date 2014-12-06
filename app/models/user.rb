@@ -5,7 +5,9 @@ class User
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
-  has_many :folders
+  has_many :folders,
+
+  after_create :create_root_folder
 
   def self.serialize_into_session(record)
     [record.id.to_s, record.authenticatable_salt]
@@ -39,4 +41,8 @@ class User
   # field :failed_attempts, type: Integer, default: 0 # Only if lock strategy is :failed_attempts
   # field :unlock_token,    type: String # Only if unlock strategy is :email or :both
   # field :locked_at,       type: Time
+
+  def create_root_folder
+    create_folder(name: 'root')
+  end
 end
