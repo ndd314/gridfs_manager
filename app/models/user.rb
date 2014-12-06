@@ -7,6 +7,8 @@ class User
 
   has_many :folders
 
+  after_create :create_root_folder
+
   def self.serialize_into_session(record)
     [record.id.to_s, record.authenticatable_salt]
   end
@@ -39,4 +41,8 @@ class User
   # field :failed_attempts, type: Integer, default: 0 # Only if lock strategy is :failed_attempts
   # field :unlock_token,    type: String # Only if unlock strategy is :email or :both
   # field :locked_at,       type: Time
+
+  def create_root_folder
+    self.folders << Folder.create(name: 'root')
+  end
 end
