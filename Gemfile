@@ -10,6 +10,7 @@ gem "haml-rails"
 gem 'jquery-rails'
 gem 'jbuilder', '~> 2.0'
 gem 'mongoid'
+gem 'mongoid-grid_fs'
 gem 'rails', '4.1.8'
 gem 'sass-rails', '>= 3.2'
 gem 'sendgrid'
