@@ -5,9 +5,9 @@ class User
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
-  has_many :folders
+  has_one :home_folder, class_name: 'Folder'
 
-  after_create :create_root_folder
+  after_create :create_user_home_folder
 
   def self.serialize_into_session(record)
     [record.id.to_s, record.authenticatable_salt]
@@ -42,7 +42,9 @@ class User
   # field :unlock_token,    type: String # Only if unlock strategy is :email or :both
   # field :locked_at,       type: Time
 
-  def create_root_folder
-    self.folders << Folder.create(name: 'root')
+  private
+
+  def create_user_home_folder
+    create_home_folder(name: 'home')
   end
 end
