@@ -6,6 +6,7 @@ class Folder
   belongs_to :owner, class_name: 'User'
   belongs_to :parent_folder, class_name: 'Folder'
   has_many :sub_folders, class_name: 'Folder'
+  has_many :files, class_name: 'GridfsFile'
 
   validates_presence_of :name
   validates_uniqueness_of :name, scope: :parent_folder, unless: :home_folder?

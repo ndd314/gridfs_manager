@@ -3,6 +3,7 @@ require 'rails_helper'
 describe Folder, :type => :model do
   describe 'relationships' do
     it { should have_many(:sub_folders) }
+    it { should have_many(:files) }
     it { should belong_to(:parent_folder) }
     it { should belong_to(:owner) }
   end
