@@ -3,7 +3,8 @@ FactoryGirl.define do
     name { Faker::Lorem.word }
     folder { create :folder }
     file_id {
-      stream = StringIO.new(Faker::Lorem.paragraph(37))
+      sentences = Random.rand(37)
+      stream = StringIO.new(Faker::Lorem.paragraph(sentences))
       Mongoid::GridFs.put(stream).id
     }
   end
