@@ -5,7 +5,7 @@ class User
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
-  has_one :home_folder, class_name: 'Folder'
+  has_one :home_folder, class_name: 'Folder', dependent: :destroy
 
   after_create :create_user_home_folder
 
@@ -46,5 +46,9 @@ class User
 
   def create_user_home_folder
     create_home_folder(name: 'home')
+  end
+
+  def delete(options={})
+    super
   end
 end
