@@ -1,12 +1,14 @@
 class Folder
+  class FolderException < StandardError; end
+
   include Mongoid::Document
 
   PATH_SEPARATOR = '/'
 
   belongs_to :owner, class_name: 'User'
   belongs_to :parent_folder, class_name: 'Folder'
-  has_many :sub_folders, class_name: 'Folder'
-  has_many :files, class_name: 'GridfsFile'
+  has_many :sub_folders, class_name: 'Folder', dependent: :destroy
+  has_many :files, class_name: 'GridfsFile', dependent: :destroy
 
   validates_presence_of :name
   validates_uniqueness_of :name, scope: :parent_folder, unless: :home_folder?
@@ -22,5 +24,23 @@ class Folder
 
   def home_folder?
     parent_folder.nil?
+  end
+
+  def contents_empty?
+    sub_folders.empty? && files.empty?
+  end
+
+  def destroy(recursive: nil)
+    if contents_empty? || recursive
+      super
+    else
+      raise FolderException.new('Folder is not empty')
+    end
+  end
+
+  private
+
+  def delete(options={})
+    super
   end
 end

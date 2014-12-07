@@ -83,4 +83,73 @@ describe Folder, :type => :model do
       expect(child_folder.full_path).to eq("/home/abc")
     end
   end
+
+  describe '#contents_empty?' do
+    subject { create(:folder) }
+
+    context 'where folder does not contain sub-folders or files' do
+      its(:contents_empty?) { should be_truthy }
+    end
+
+    context 'where folder contains sub-folders' do
+      before { subject.sub_folders << create(:folder) }
+      its(:contents_empty?) { should be_falsey }
+    end
+
+    context 'where folder contains files' do
+      before { subject.files << create(:gridfs_file) }
+      its(:contents_empty?) { should be_falsey }
+    end
+  end
+
+  describe '#delete' do
+    subject { create(:folder) }
+
+    it 'does not allow direct db delete' do
+      expect { subject.delete }.to raise_exception
+    end
+  end
+
+  describe '#destroy' do
+    subject { create(:folder) }
+
+    context 'when folder is not empty' do
+      let(:sub_folder) { create(:folder) }
+
+      before { subject.sub_folders << sub_folder }
+
+      context 'destroy without recursive' do
+        it 'raises exception on destroy' do
+          expect { subject.destroy }.to raise_exception
+        end
+      end
+
+      context 'destroy with recursion' do
+        it 'allows destroy with recursive' do
+          expect { subject.destroy(recursive: true) }.to_not raise_exception
+        end
+
+        it 'destroy itself' do
+          subject.destroy(recursive: true)
+          expect(subject).to be_frozen
+          expect { Folder.find(subject.id) }.to raise_error(Mongoid::Errors::DocumentNotFound)
+        end
+
+        it 'destroy sub_folders' do
+          subject.destroy(recursive: true)
+          expect { Folder.find(sub_folder.id) }.to raise_error(Mongoid::Errors::DocumentNotFound)
+          expect(sub_folder).to be_frozen
+        end
+
+        it 'destroy its files' do
+          gridfs_file = create(:gridfs_file)
+          subject.files << gridfs_file
+
+          subject.destroy(recursive: true)
+          expect { GridfsFile.find(gridfs_file.id) }.to raise_error(Mongoid::Errors::DocumentNotFound)
+          expect(gridfs_file).to be_frozen
+        end
+      end
+    end
+  end
 end
