@@ -9,6 +9,7 @@ describe Folder, :type => :model do
 
   describe 'validations' do
     it { should validate_presence_of :name }
+    it { should validate_presence_of :user }
 
     context 'when name is empty' do
       it 'should not be valid' do
@@ -30,14 +31,14 @@ describe Folder, :type => :model do
 
       context 'when folders belonging to the same parent folder' do
         it 'folder names must be unique' do
-          diff_parent_folder = Folder.create(name: 'child')
+          diff_parent_folder = create :folder, name: 'child'
           expect(diff_parent_folder.valid?).to be_truthy
         end
       end
 
       context 'when parent folders are nil - these are home folders' do
         it 'allows duplicated names' do
-          another_home = Folder.create(name: 'home')
+          another_home = create :folder, name: 'home'
           expect(another_home.valid?).to be_truthy
         end
       end

@@ -8,6 +8,7 @@ class Folder
   has_many :sub_folders, class_name: 'Folder'
 
   validates_presence_of :name
+  validates_presence_of :user
   validates_uniqueness_of :name, scope: :parent_folder, unless: :home_folder?
 
   field :name, type: String
