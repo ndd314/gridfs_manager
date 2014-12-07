@@ -11,14 +11,28 @@ describe Folder, :type => :model do
     it { should validate_presence_of :name }
     it { should validate_presence_of :user }
 
-    context 'when name is empty' do
-      it 'should not be valid' do
-        my_folder = Folder.new(name: '')
-        expect(my_folder.valid?).to be_falsey
+    context 'when validating name format' do
+      let(:current_user) { create :user }
+
+      subject { Folder.new(name: folder_name, user: current_user) }
+
+      context 'when name is empty' do
+        let(:folder_name) { '' }
+        its(:valid?) { should be_falsey }
+      end
+
+      context 'when name contains the path separator' do
+        let (:folder_name) { 'abc/abc' }
+        its(:valid?) { should be_falsey }
+      end
+
+      context 'when name contains none alpha-numberic' do
+        let (:folder_name) { 'abc$abc' }
+        its(:valid?) { should be_falsey }
       end
     end
 
-    context 'when validate folder names' do
+    context 'when validate folders uniqueness' do
       let!(:home_folder) { create :folder, name: 'home' }
       let!(:child_folder) { create :folder, name: 'child', parent_folder: home_folder }
 
@@ -29,14 +43,14 @@ describe Folder, :type => :model do
         end
       end
 
-      context 'when folders belonging to the same parent folder' do
+      context 'when folders has different parent folder' do
         it 'folder names must be unique' do
           diff_parent_folder = create :folder, name: 'child'
           expect(diff_parent_folder.valid?).to be_truthy
         end
       end
 
-      context 'when parent folders are nil - these are home folders' do
+      context 'when fodlers does not have parent' do
         it 'allows duplicated names' do
           another_home = create :folder, name: 'home'
           expect(another_home.valid?).to be_truthy

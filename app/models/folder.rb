@@ -8,8 +8,9 @@ class Folder
   has_many :sub_folders, class_name: 'Folder'
 
   validates_presence_of :name
-  validates_presence_of :user
   validates_uniqueness_of :name, scope: :parent_folder, unless: :home_folder?
+  validates_format_of :name, with: /\A[a-z0-9 \-_]*\Z/i
+  validates_presence_of :user
 
   field :name, type: String
 
