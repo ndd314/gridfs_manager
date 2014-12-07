@@ -1,5 +1,5 @@
 class GridfsFile
-  class GridFsFileException < StandardError; end
+  # class GridFsFileException < StandardError; end
 
   include Mongoid::Document
 
