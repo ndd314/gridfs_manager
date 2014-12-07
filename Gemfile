@@ -27,6 +27,7 @@ group :development, :test do
   gem 'factory_girl_rails'
   gem 'faker'
   gem 'letter_opener'
+  gem 'relish'
   gem 'rspec-its'
   gem 'rspec-rails', '~> 3.0'
   gem 'spring'
