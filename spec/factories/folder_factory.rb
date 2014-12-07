@@ -1,7 +1,6 @@
 FactoryGirl.define do
   factory :folder do
-    name "MyString"
-
-    user { User.create }
+    owner { User.create }
+    name { Faker::Lorem.word }
   end
 end
