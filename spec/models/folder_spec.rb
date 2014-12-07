@@ -4,17 +4,17 @@ describe Folder, :type => :model do
   describe 'relationships' do
     it { should have_many(:sub_folders) }
     it { should belong_to(:parent_folder) }
-    it { should belong_to(:user) }
+    it { should belong_to(:owner) }
   end
 
   describe 'validations' do
     it { should validate_presence_of :name }
-    it { should validate_presence_of :user }
+    it { should validate_presence_of :owner }
 
     context 'when validating name format' do
       let(:current_user) { create :user }
 
-      subject { Folder.new(name: folder_name, user: current_user) }
+      subject { Folder.new(name: folder_name, owner: current_user) }
 
       context 'when name is empty' do
         let(:folder_name) { '' }

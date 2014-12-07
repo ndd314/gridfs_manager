@@ -3,14 +3,14 @@ class Folder
 
   PATH_SEPARATOR = '/'
 
-  belongs_to :user
+  belongs_to :owner, class_name: 'User'
   belongs_to :parent_folder, class_name: 'Folder'
   has_many :sub_folders, class_name: 'Folder'
 
   validates_presence_of :name
   validates_uniqueness_of :name, scope: :parent_folder, unless: :home_folder?
   validates_format_of :name, with: /\A[a-z0-9 \-_]*\Z/i
-  validates_presence_of :user
+  validates_presence_of :owner
 
   field :name, type: String
 
