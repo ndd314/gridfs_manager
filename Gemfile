@@ -2,6 +2,7 @@ ruby '2.1.5'
 
 source 'https://rubygems.org'
 
+gem 'active_model_serializers'
 gem 'autoprefixer-rails'
 gem 'bootstrap-sass', '~> 3.3.1'
 gem 'bson_ext'
