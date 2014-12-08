@@ -25,3 +25,6 @@ module SjsuCmpe295Server
     config.filter_parameters += [:password, :password_confirmation]
   end
 end
+
+# patch awesome_print error with BSON https://gist.github.com/akiatoji/2990910
+::Moped::BSON = ::BSON
