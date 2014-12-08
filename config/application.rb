@@ -27,4 +27,4 @@ module SjsuCmpe295Server
 end
 
 # patch awesome_print error with BSON https://gist.github.com/akiatoji/2990910
-::Moped::BSON = ::BSON
+# ::Moped::BSON = ::BSON
