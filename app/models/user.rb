@@ -45,7 +45,7 @@ class User
   private
 
   def create_user_home_folder
-    create_home_folder(name: 'home')
+    create_home_folder(name: 'home') unless home_folder
   end
 
   def delete(options={})
