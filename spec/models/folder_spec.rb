@@ -35,7 +35,7 @@ describe Folder, :type => :model do
 
     context 'when validate folders uniqueness' do
       let!(:home_folder) { create :folder, name: 'home' }
-      let!(:child_folder) { create :folder, name: 'child', parent_folder: home_folder }
+      let!(:child_folder) { Folder.create name: 'child', parent_folder: home_folder }
 
       context 'when folders belonging to the same parent folder' do
         it 'folder names must be unique' do
@@ -76,7 +76,7 @@ describe Folder, :type => :model do
 
   describe '#full_path' do
     let(:home_folder) { create :folder, name: 'home' }
-    let(:child_folder) { create :folder, name: 'abc', parent_folder: home_folder }
+    let(:child_folder) { Folder.create name: 'abc', parent_folder: home_folder }
 
     it 'returns the full path to the folder' do
       expect(home_folder.full_path).to eq("/home")
@@ -149,6 +149,36 @@ describe Folder, :type => :model do
           expect { GridfsFile.find(gridfs_file.id) }.to raise_error(Mongoid::Errors::DocumentNotFound)
           expect(gridfs_file).to be_frozen
         end
+      end
+    end
+  end
+
+  describe '#owner' do
+    let(:owner) { create :user }
+    let(:home_folder) { owner.home_folder }
+    let(:folder1) { create :folder, parent_folder: home_folder, owner: owner }
+
+    context 'for folder that is not a home folders' do
+      it 'has the same owner has its parent folder' do
+        expect(folder1.owner).to eq(home_folder.owner)
+      end
+    end
+
+    context 'when creating a folder without an owner' do
+      let(:parent_folder) { create :folder }
+      let(:folder2) { Folder.create name: 'folder2', parent_folder: parent_folder }
+
+      it 'has the same owner has its parent folder' do
+        expect(folder2.owner).to eq(parent_folder.owner)
+      end
+    end
+
+    context 'create folder with different owner than its parent' do
+      let(:another_owner) { create :user }
+      subject { create :folder, parent_folder: home_folder, owner: another_owner }
+
+      it 'should raise an error' do
+        expect {subject}.to raise_error
       end
     end
   end

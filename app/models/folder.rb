@@ -1,6 +1,5 @@
 class Folder
   class FolderException < StandardError; end
-
   include Mongoid::Document
 
   PATH_SEPARATOR = '/'
@@ -14,6 +13,9 @@ class Folder
   validates_uniqueness_of :name, scope: :parent_folder, unless: :home_folder?
   validates_format_of :name, with: /\A[a-z0-9 \-_]*\Z/i
   validates_presence_of :owner
+  validate :same_owner_as_parent
+
+  after_initialize :copy_owner_from_parent_folder
 
   field :name, type: String
 
@@ -39,6 +41,15 @@ class Folder
   end
 
   private
+
+  def copy_owner_from_parent_folder
+    self.owner ||= parent_folder.owner if parent_folder
+  end
+
+  def same_owner_as_parent
+    return unless parent_folder && owner
+    errors[:owner] << 'Folder must have the same owner as its parent' if parent_folder.owner.id != owner.id
+  end
 
   def delete(options={})
     super
