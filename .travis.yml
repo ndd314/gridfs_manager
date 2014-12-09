@@ -12,3 +12,7 @@ deploy:
   run: "rake db:drop"
 
 services: mongodb
+
+script:
+  - bundle exec rspec -f d
+  - bundle exec cucumber
