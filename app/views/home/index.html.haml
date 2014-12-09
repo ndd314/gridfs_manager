@@ -1,6 +1,72 @@
-%h1
-  GridFS Navigator
+.jumbotron
+  .container
+    %h1
+      Welcome to GridFS Navigator
+    %p
+      This is a file system implemented on top of MongoDB/GridFS. The features of this product are:
+      %ul
+        %li Scalable documents, objects cloud storage
+        %li Navigation by using Folders
+        %li RESTful API for mobile clients
+        %li User security
+    %p
+      Application for this product includes:
+      %ul
+        %li Private or Public Cloud Storage
+        %li Store media files, 3D models, images for MicroCT, medical applications
+        %li Big Data
+    %p
+      Future works:
+      %ul
+        %li Access Control
+        %li Duplicate file detection (md5)
+        %li Multiple versions
+        %li File streaming
+        %li File sharing
+        %li Shell commands
+    %p
+      %a.btn.btn-primary.btn-lg{role: 'button', href: 'https://dl.dropboxusercontent.com/u/155137/MS%20Computer%20Engineering%20295B%20Project%20Report%20Format%20v1%20Final%20Report.pdf'}
+        See our paper
 
-%h2
-  = "#{@home_folder.full_path}"
-
+.container
+  .row
+    .col-md-4
+      %h2 Source Code
+      %p Our Ruby on Rails source codes can be found on GitHub
+      %p
+        %a.btn.btn-default{href: 'https://github.com/ndd314/sjsu_cmpe295_server'}
+          GitHub &raquo;
+    .col-md-4
+      %h2 Current Build Status
+      %p
+        %a{href: 'https://travis-ci.org/ndd314/sjsu_cmpe295_server'}
+          %img{src: 'https://travis-ci.org/ndd314/sjsu_cmpe295_server.svg?branch=master'}
+      %p We run continuous integration on Travis-CI
+      %p
+        %a.btn.btn-default{href: 'https://travis-ci.org/ndd314/sjsu_cmpe295_server'}
+          Travis &raquo;
+    .col-md-4
+      %h2 Documentation
+      %p We publish our features documentation on Relish
+      %p
+        %a.btn.btn-default{href: 'https://relishapp.com/ndd314/sjsu-cmpe295-server/docs'}
+          Relish &raquo;
+  .row
+    .col-md-4
+      %h2 Deployment Details
+      %p Our Rails app is currently running on
+      %a{href: 'https://www.heroku.com/'}
+        %img{src: 'http://upload.wikimedia.org/wikipedia/en/a/a9/Heroku_logo.png', width: 150, height: 50}
+    .col-md-4
+      %h2 Services
+      %p
+        %a{href: 'https://mongolab.com/'}
+          %img{src: 'https://mongolab.com/company/brand/resources/MongoLab-Logo-OnWhite-RGB.png', width: 200, height: 52}
+      %p
+        %a{href: 'http://sendgrid.com'}
+          %img{src: 'https://assets3.sendgrid.com/mkt/assets/logos_brands/horizontal/PNG/logo_full_color_flat-a982ded4b0b159db49a552f2cf490439.png', width: 150, height: 51}
+    .col-md-4
+      %h2 Monitoring
+      %p This application is being monitor by NewRelic
+      %a{href: 'https://rpm.newrelic.com/accounts/839944/applications/7197984'}
+        %img{src: 'http://storefront.nr-assets.net/assets/newrelic/source/NewRelic-logo-bug.png', width: 200, height: 36}
