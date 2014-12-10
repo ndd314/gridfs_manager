@@ -11,7 +11,7 @@ class Folder
 
   validates_presence_of :name
   validates_uniqueness_of :name, scope: :parent_folder, unless: :home_folder?
-  validates_format_of :name, with: /\A[a-z0-9 \-_]*\Z/i
+  validates_format_of :name, with: /\A[a-z0-9 \-_\.]*\Z/i
   validates_presence_of :owner
   validate :same_owner_as_parent
 

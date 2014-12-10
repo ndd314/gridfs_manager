@@ -31,6 +31,11 @@ describe Folder, :type => :model do
         let (:folder_name) { 'abc$abc' }
         its(:valid?) { should be_falsey }
       end
+
+      context 'when name contains a period' do
+        let (:folder_name) { 'abc.abc' }
+        its(:valid?) { should be_truthy }
+      end
     end
 
     context 'when validate folders uniqueness' do
@@ -182,4 +187,6 @@ describe Folder, :type => :model do
       end
     end
   end
+
+  describe
 end
