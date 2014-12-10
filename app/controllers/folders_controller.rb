@@ -17,16 +17,15 @@ class FoldersController < ApplicationController
     attributes = params[:folder].symbolize_keys
     parent_folder_id = attributes[:parent_folder_id] || home_folder.id
     attributes = attributes.merge(parent_folder_id: parent_folder_id)
+    parent_folder = Folder.find parent_folder_id
 
     begin
       @folder = Folder.new(attributes)
       @folder.save!
-      notice = 'Successfully created folder.'
+      redirect_to parent_folder, notice: "Successfully created new folder."
     rescue StandardError => e
-      alert = e.message
+      redirect_to parent_folder, alert: e.message
     end
-
-    redirect_to action: 'show', id: parent_folder_id, notice: notice, alert: alert
   end
 
   def destroy
