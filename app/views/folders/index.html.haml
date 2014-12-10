@@ -1,25 +1,11 @@
 .container
   %h3
-    %span.glyphicon.glyphicon-folder-open &nbsp;
-    = @home_folder.name
-    >
-    = link_to new_folder_path, class: 'btn btn-primary' do
-      %i.glyphicon.glyphicon-plus
-    = link_to 'Upload File', new_file_path(folder_id: @home_folder.id), class: 'btn btn-primary'
+    = render partial: 'breadcrumb', locals: {current_folder: @home_folder }
+    = render partial: 'actions', locals: {current_folder: @home_folder }
 .container
   %ul.list-group
-    - @home_folder.sub_folders.each do |folder|
-      %li.list-group-item
-        %h4
-          %span.glyphicon.glyphicon-folder-close &nbsp;
-          = link_to folder.name, folder_path(folder)
-          = link_to folder_path(folder), method: :delete, class: 'btn btn-sm' do
-            %i.glyphicon.glyphicon-remove
+    = render @home_folder.sub_folders
+
+.container
   %ul.list-group
-    - @home_folder.files.each do |file|
-      %li.list-group-item
-        %h4
-          %span.glyphicon.glyphicon-file &nbsp;
-          = link_to file.name, file_path(file), target: '_blank'
-          = link_to file_path(file), method: :delete, class: 'btn btn-sm' do
-            %i.glyphicon.glyphicon-remove
+    = render partial: 'gridfs_file', collection: @home_folder.files
