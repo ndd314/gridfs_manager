@@ -27,7 +27,7 @@ class FilesController < ApplicationController
     begin
       @gridfs_file = GridfsFile.find(params[:id])
       @gridfs_file.destroy
-      redirect_to folder_path(@gridfs_file.folder)
+      redirect_to folder_path(@gridfs_file.folder), notice: "Successfully deleted file #{@gridfs_file.name}"
     rescue StandardError => e
       redirect_to folder_path(@gridfs_file.folder), alert: e.message
     end
