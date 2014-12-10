@@ -21,4 +21,10 @@ class FoldersController < ApplicationController
     @folder.save!
     redirect_to action: 'show', id: parent_folder_id
   end
+
+  def destroy
+    @current_folder ||= Folder.find(params[:id])
+    @current_folder.destroy
+    redirect_to @current_folder.parent_folder
+  end
 end

@@ -4,6 +4,7 @@
       = @current_folder.name
     >
     = link_to 'New Folder', new_folder_path(parent_folder_id: @current_folder.id), class: 'btn btn-primary'
+    = link_to 'Delete', folder_path(@current_folder), method: :delete, class: 'btn btn-danger'
 .container
   %ul.list-group
     - @current_folder.sub_folders.each do |folder|
