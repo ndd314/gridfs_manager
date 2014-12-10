@@ -1,5 +1,7 @@
-= link_to 'New Folder', new_folder_path(parent_folder_id: current_folder.id), class: 'btn btn-primary'
-= link_to new_folder_path(parent_folder_id: current_folder.id), class: 'btn btn-primary' do
+= link_to new_folder_path(parent_folder_id: current_folder.id), class: 'btn btn-success' do
   %i.glyphicon.glyphicon-plus
-= link_to 'Upload File', new_file_path(folder_id: current_folder.id), class: 'btn btn-primary'
-= link_to 'Delete', folder_path(current_folder), method: :delete, class: 'btn btn-danger' unless current_folder.home_folder?
+- unless current_folder.home_folder?
+  = link_to folder_path(current_folder), method: :delete, class: 'btn btn-danger' do
+    %i.glyphicon.glyphicon-minus
+= link_to new_file_path(folder_id: current_folder.id), class: 'btn btn-primary' do
+  %i.glyphicon.glyphicon-upload
