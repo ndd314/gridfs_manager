@@ -188,5 +188,19 @@ describe Folder, :type => :model do
     end
   end
 
-  describe
+  describe '#folders_from_home' do
+    let(:owner) { create :user }
+    let(:home_folder) { owner.home_folder }
+    let(:folder1) { create :folder, parent_folder: home_folder, owner: owner }
+    let(:folder2) { create :folder, parent_folder: folder1, owner: owner }
+
+    let(:other_folder) { create :folder }
+
+    subject { folder2.folders_from_home }
+
+    it 'returns an array leading to the current folder from the home folder' do
+      expect(subject).to eq([home_folder, folder1, folder2])
+      expect(subject).to_not include(other_folder)
+    end
+  end
 end

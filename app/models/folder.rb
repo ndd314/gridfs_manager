@@ -40,6 +40,11 @@ class Folder
     end
   end
 
+  def folders_from_home
+    return parent_folder.folders_from_home << self if parent_folder
+    [self]
+  end
+
   private
 
   def copy_owner_from_parent_folder
