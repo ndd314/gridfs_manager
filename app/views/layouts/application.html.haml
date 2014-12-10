@@ -1,32 +1,44 @@
 !!!
 %html
   %head
-    %title SjsuCmpe295Server
+    %title GridFS Navigator
     = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true
     = javascript_include_tag 'application', 'data-turbolinks-track' => true
     = csrf_meta_tags
   %body
-    - if notice
-      .alert.alert-info
-        = notice
-    - if alert
-      .alert.alert-danger
-        = alert
-
     %nav.navbar.navbar-inverse.navbar-fixed-top{role: 'navigation'}
       .container
         .navbar-header
-          %button.navbar-toggle.collapsed{type: "button"}
+          %button.navbar-toggle.collapsed{type: "button", 'data-toggle' => "collapse", 'data-target' => "#navbar", 'aria-expanded' => "false", 'aria-controls' => "navbar"}
             %span.sr-only
               Toggle navigation
             %span.icon-bar
             %span.icon-bar
             %span.icon-bar
-          %a.navbar-brand
+          %a.navbar-brand{href: '/'}
             GridFS Navigator
-
+        #navbar.navbar-collapse.collapse
+          %ul.nav.navbar-nav
+            %li.active
+              %a{href: '/folders'} My Home Folder
+          -if user_signed_in?
+            .navbar-right
+              .navbar-text
+                = "Welcome, #{current_user.email}!"
+              = link_to('Logout', destroy_user_session_path, :method => :delete, :class => 'btn btn-success navbar-btn')
+          -else
+            .navbar-right
+              %a.btn.btn-success.navbar-btn{href: '/users/sign_in'}
+                Login
+              %a.btn.btn-primary.navbar-btn{href: '/users/sign_up'}
+                Create Account
+    - if notice
+      .alert.alert-info.alert-dismissible{role: 'alert'}
+        = notice
+    - if alert
+      .alert.alert-danger.alert-dismissible{role: 'alert'}
+        = alert
     = yield
-
     .container
       %hr
       %footer
