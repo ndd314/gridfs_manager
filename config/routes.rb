@@ -8,6 +8,7 @@ Rails.application.routes.draw do
   root to: "home#index"
 
   resources :folders
+  resources :files
 
   namespace :api do
     resources :folders
