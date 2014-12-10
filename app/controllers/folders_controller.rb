@@ -19,12 +19,13 @@ class FoldersController < ApplicationController
     attributes = attributes.merge(parent_folder_id: parent_folder_id)
     @folder = Folder.new(attributes)
     @folder.save!
-    redirect_to action: 'show', id: parent_folder_id
+
+    redirect_to action: 'show', id: parent_folder_id, notice: 'Successfully created folder.'
   end
 
   def destroy
     @current_folder ||= Folder.find(params[:id])
     @current_folder.destroy
-    redirect_to @current_folder.parent_folder
+    redirect_to @current_folder.parent_folder, notice: 'Successfully deleted folder.'
   end
 end
