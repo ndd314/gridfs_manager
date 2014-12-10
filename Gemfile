@@ -7,6 +7,7 @@ gem 'autoprefixer-rails'
 gem 'bootstrap-sass', '~> 3.3.1'
 gem 'bson_ext'
 gem 'devise'
+gem 'font-awesome-rails'
 gem "haml-rails"
 gem 'jquery-rails'
 gem 'jbuilder', '~> 2.0'

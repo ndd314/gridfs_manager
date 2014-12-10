@@ -17,15 +17,26 @@ class FoldersController < ApplicationController
     attributes = params[:folder].symbolize_keys
     parent_folder_id = attributes[:parent_folder_id] || home_folder.id
     attributes = attributes.merge(parent_folder_id: parent_folder_id)
-    @folder = Folder.new(attributes)
-    @folder.save!
 
-    redirect_to action: 'show', id: parent_folder_id, notice: 'Successfully created folder.'
+    begin
+      @folder = Folder.new(attributes)
+      @folder.save!
+      notice = 'Successfully created folder.'
+    rescue StandardError => e
+      alert = e.message
+    end
+
+    redirect_to action: 'show', id: parent_folder_id, notice: notice, alert: alert
   end
 
   def destroy
     @current_folder ||= Folder.find(params[:id])
-    @current_folder.destroy
-    redirect_to @current_folder.parent_folder, notice: 'Successfully deleted folder.'
+
+    begin
+      @current_folder.destroy
+      redirect_to @current_folder.parent_folder, notice: 'Successfully deleted folder.'
+    rescue StandardError => e
+      redirect_to @current_folder, alert: e.message
+    end
   end
 end

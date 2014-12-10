@@ -1,2 +1,10 @@
-%h1 Files#new
-%p Find me in app/views/files/new.html.haml
+.jumbotron
+  .container
+    %h2.glyphicon.glyphicon-folder-close
+      = @current_folder.name
+    = form_for(@gridfs_file, as: :gridfs_file, url: files_path(@gridfs_file)) do |f|
+      %span.btn.btn-default.btn-file
+        Browse
+        = f.file_field :file_contents, auto_focus: true, size: 40
+      = f.hidden_field :folder_id, value: @current_folder.id
+      = f.submit "Upload", class: 'btn btn-primary'

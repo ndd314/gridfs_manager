@@ -1,13 +1,25 @@
 .container
-  %h2
-    %span.glyphicon.glyphicon-folder-open
-      = @home_folder.name
+  %h3
+    %span.glyphicon.glyphicon-folder-open &nbsp;
+    = @home_folder.name
     >
-    = link_to 'New Folder', new_folder_path, class: 'btn btn-primary'
+    = link_to new_folder_path, class: 'btn btn-primary' do
+      %i.glyphicon.glyphicon-plus
+    = link_to 'Upload File', new_file_path(folder_id: @home_folder.id), class: 'btn btn-primary'
 .container
   %ul.list-group
     - @home_folder.sub_folders.each do |folder|
       %li.list-group-item
-        %h3
-          %span.glyphicon.glyphicon-folder-open
-            = link_to folder.name, folder_path(folder)
+        %h4
+          %span.glyphicon.glyphicon-folder-close &nbsp;
+          = link_to folder.name, folder_path(folder)
+          = link_to folder_path(folder), method: :delete, class: 'btn btn-sm' do
+            %i.glyphicon.glyphicon-remove
+  %ul.list-group
+    - @home_folder.files.each do |file|
+      %li.list-group-item
+        %h4
+          %span.glyphicon.glyphicon-file &nbsp;
+          = link_to file.name, file_path(file), target: '_blank'
+          = link_to file_path(file), method: :delete, class: 'btn btn-sm' do
+            %i.glyphicon.glyphicon-remove
