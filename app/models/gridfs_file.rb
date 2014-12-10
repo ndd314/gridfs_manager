@@ -12,7 +12,7 @@ class GridfsFile
   validate :file_exists_on_gridfs
 
   delegate :owner, to: :folder
-  delegate :length, :chunkSize, :uploadDate, :md5, :contentType, :metadata, to: :grid_fs_file
+  delegate :length, :chunkSize, :uploadDate, :md5, :contentType, :metadata, :data_uri, :data, to: :grid_fs_file
 
   after_destroy :delete_grid_fs_file
 
@@ -23,11 +23,6 @@ class GridfsFile
     @grid_fs_file = grid_fs.put(stream)
     self.file_id = grid_fs_file.id
   end
-
-  # def download
-  #   raise GridFsFileException.new('Download is not possible') if file_id.nil?
-  #   grid_fs.get(file_id)
-  # end
 
   private
 

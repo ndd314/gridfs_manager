@@ -91,13 +91,15 @@ describe GridfsFile, :type => :model do
     let(:gridfs_file) { create :gridfs_file }
     let(:actual_gridfs_file) { Mongoid::GridFs.get(gridfs_file.file_id) }
 
-    it 'should returns :length, :chunkSize, :uploadDate, :md5, :contentType, :metadata' do
+    it 'should returns :length, :chunkSize, :uploadDate, :md5, :contentType, :metadata, :data, :data_uri' do
       expect(gridfs_file.length).to eq(actual_gridfs_file.length)
       expect(gridfs_file.chunkSize).to eq(actual_gridfs_file.chunkSize)
       expect(gridfs_file.uploadDate).to eq(actual_gridfs_file.uploadDate)
       expect(gridfs_file.md5).to eq(actual_gridfs_file.md5)
       expect(gridfs_file.contentType).to eq(actual_gridfs_file.contentType)
       expect(gridfs_file.metadata).to eq(actual_gridfs_file.metadata)
+      expect(gridfs_file.data).to eq(actual_gridfs_file.data)
+      expect(gridfs_file.data_uri.size).to eq(actual_gridfs_file.data_uri.size)
     end
   end
 end
