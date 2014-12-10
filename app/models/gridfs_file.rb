@@ -6,7 +6,7 @@ class GridfsFile
   belongs_to :folder
 
   validates_presence_of :folder, :name
-  validates_format_of :name, with: /\A[a-z0-9 \-_]*\Z/i
+  validates_format_of :name, with: /\A[a-z0-9 \-_\.]*\Z/i
   validates_uniqueness_of :name, scope: :folder
   validates_presence_of :file_id, message: 'File has not been uploaded'
   validate :file_exists_on_gridfs

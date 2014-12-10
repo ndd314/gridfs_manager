@@ -69,6 +69,11 @@ describe GridfsFile, :type => :model do
         let (:file_name) { 'abc$abc' }
         it { expect(subject.errors.messages[:name]).to be_present }
       end
+
+      context 'when name contains a period' do
+        let (:file_name) { 'abc.abc' }
+        it { expect(subject.errors.messages[:name]).to_not be_present }
+      end
     end
   end
 
