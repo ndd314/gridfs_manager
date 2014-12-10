@@ -3,7 +3,7 @@
     %h2.glyphicon.glyphicon-folder-close
       = @parent_folder.name
     = form_for(@folder, as: :folder, url: folders_path(@folder)) do |f|
-      = f.label :Name
+      = f.label :New_Folder_Name
       = f.text_field :name, autofocus: true
       = f.hidden_field :parent_folder_id, value: @parent_folder.id
       = f.submit "Create", class: 'btn btn-primary'
