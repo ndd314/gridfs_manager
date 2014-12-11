@@ -3,8 +3,8 @@
     = render partial: 'folders/breadcrumb', locals:{ current_folder: @current_folder }
 .container
   = form_for(@gridfs_file, as: :gridfs_file, url: files_path(@gridfs_file)) do |f|
-    %span.btn.btn-default.btn-file
-      Browse
+    %span.btn.btn-success.btn-file
+      Select files ...
       = f.file_field :file_contents, auto_focus: true, size: 40
     = f.hidden_field :folder_id, value: @current_folder.id
     = f.submit "Upload Now", class: 'btn btn-primary'

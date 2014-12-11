@@ -3,7 +3,7 @@
 &nbsp;
 - unless current_folder.home_folder?
   = link_to folder_path(current_folder), method: :delete, class: 'btn btn-danger' do
-    %i.glyphicon.glyphicon-minus
+    %i.glyphicon.glyphicon-remove
   &nbsp;
 = link_to new_file_path(folder_id: current_folder.id), class: 'btn btn-primary' do
-  %i.glyphicon.glyphicon-upload
+  %i.glyphicon.glyphicon-arrow-up
