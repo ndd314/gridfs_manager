@@ -2,13 +2,18 @@
   %h3
     = render partial: 'breadcrumb', locals: {current_folder: @current_folder }
     = render partial: 'actions', locals: {current_folder: @current_folder }
-.container
-  %ul.list-group
-    = render @current_folder.sub_folders
 
-.container
-  %ul.list-group
-    = render partial: 'gridfs_file', collection: @current_folder.files
+- if @current_folder.contents_empty?
+  .container
+    %h3 Empty folder
+- else
+  .container
+    %ul.list-group
+      = render @current_folder.sub_folders
 
-.container
-  = render(partial: 'carousel', locals: { image_files: @image_files }) if @image_files.present?
+  .container
+    %ul.list-group
+      = render partial: 'gridfs_file', collection: @current_folder.files
+
+  .container
+    = render(partial: 'carousel', locals: { image_files: @image_files }) if @image_files.present?
