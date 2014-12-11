@@ -6,12 +6,18 @@ class FoldersController < ApplicationController
 
   def show
     @current_folder ||= Folder.find(params[:id])
+
+    authorize! :manage, @current_folder
+
     @image_files = @current_folder.files.any_of(name: /.*\.(png|bmp|jpg)$/i)
   end
 
   def new
     @parent_folder ||= Folder.find(params[:parent_folder_id]) if params[:parent_folder_id]
     @parent_folder ||= home_folder
+
+    authorize! :manage, @parent_folder
+
     @folder = Folder.new(parent_folder: @parent_folder)
   end
 
@@ -20,6 +26,8 @@ class FoldersController < ApplicationController
     parent_folder_id = attributes[:parent_folder_id] || home_folder.id
     attributes = attributes.merge(parent_folder_id: parent_folder_id)
     parent_folder = Folder.find parent_folder_id
+
+    authorize! :manage, parent_folder
 
     begin
       @folder = Folder.new(attributes)
@@ -32,6 +40,8 @@ class FoldersController < ApplicationController
 
   def destroy
     @current_folder ||= Folder.find(params[:id])
+
+    authorize! :manage, @current_folder
 
     begin
       @current_folder.destroy

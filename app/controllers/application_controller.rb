@@ -5,6 +5,10 @@ class ApplicationController < ActionController::Base
 
   before_action :authenticate_user!
 
+  rescue_from CanCan::AccessDenied do |exception|
+    redirect_to root_url, :alert => exception.message
+  end
+
   def home_folder
     @home_folder ||= current_user.home_folder
   end

@@ -6,6 +6,7 @@ gem 'active_model_serializers'
 gem 'autoprefixer-rails'
 gem 'bootstrap-sass', '~> 3.3.1'
 gem 'bson_ext'
+gem "cancan"
 gem 'devise'
 gem 'font-awesome-rails'
 gem "haml-rails"
