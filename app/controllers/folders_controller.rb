@@ -1,10 +1,12 @@
 class FoldersController < ApplicationController
   def index
     @home_folder = home_folder
+    redirect_to @home_folder
   end
 
   def show
     @current_folder ||= Folder.find(params[:id])
+    @image_files = @current_folder.files.any_of(name: /.*\.(png|bmp|jpg)$/i)
   end
 
   def new

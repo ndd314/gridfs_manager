@@ -9,3 +9,6 @@
 .container
   %ul.list-group
     = render partial: 'gridfs_file', collection: @current_folder.files
+
+.container
+  = render partial: 'carousel', locals: { image_files: @image_files }
