@@ -11,4 +11,4 @@
     = render partial: 'gridfs_file', collection: @current_folder.files
 
 .container
-  = render partial: 'carousel', locals: { image_files: @image_files }
+  = render(partial: 'carousel', locals: { image_files: @image_files }) if @image_files.present?
