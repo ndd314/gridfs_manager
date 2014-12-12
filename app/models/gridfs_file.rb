@@ -1,5 +1,5 @@
 class GridfsFile
-  # class GridFsFileException < StandardError; end
+  class GridFsFileException < StandardError; end
 
   include Mongoid::Document
 
@@ -20,8 +20,10 @@ class GridfsFile
   field :file_id, type: String
 
   def upload!(stream)
+    raise GridFsFileException.new('Upload is not possible.') if self.file_id
     @grid_fs_file = grid_fs.put(stream)
     self.file_id = grid_fs_file.id
+    save!
   end
 
   private

@@ -30,6 +30,29 @@ describe GridfsFile, :type => :model do
     end
   end
 
+  describe '#upload' do
+    let!(:folder) { create :folder }
+    subject { GridfsFile.new name: 'a_new_file', folder: folder }
+
+    context 'when a file is uploaded to grid_fs' do
+      let(:file) { StringIO.new('file contents') }
+      before { subject.upload!(file) }
+
+      it 'does now allow another upload' do
+        expect { subject.upload!(file) }.to raise_error(GridFsFileException)
+      end
+
+      it 'saves the underlining file_id immediately' do
+        expect(subject.persisted?).to be_truthy
+      end
+
+      context 'when there is an error for sending file to mongodb' do
+        before { allow(Mongoid::GridF).to receive(put).and_return(StandardError.new('Someting happened')) }
+        expect { subject }.to raise_error(GridFsFileException)
+      end
+    end
+  end
+
   describe 'filename validations' do
     describe 'filename uniqueness' do
       let(:folder) { create :folder }
