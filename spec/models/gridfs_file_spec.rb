@@ -32,23 +32,28 @@ describe GridfsFile, :type => :model do
 
   describe '#upload' do
     let!(:folder) { create :folder }
+    let(:file) { StringIO.new('file contents') }
+
     subject { GridfsFile.new name: 'a_new_file', folder: folder }
 
-    context 'when a file is uploaded to grid_fs' do
-      let(:file) { StringIO.new('file contents') }
-      before { subject.upload!(file) }
-
-      it 'does now allow another upload' do
-        expect { subject.upload!(file) }.to raise_error(GridFsFileException)
+    context 'when a file is uploaded to grid_fs successfully' do
+      before do
+        expect(subject.upload!(file)).to be_truthy
       end
 
       it 'saves the underlining file_id immediately' do
         expect(subject.persisted?).to be_truthy
       end
 
-      context 'when there is an error for sending file to mongodb' do
-        before { allow(Mongoid::GridF).to receive(put).and_return(StandardError.new('Someting happened')) }
-        expect { subject }.to raise_error(GridFsFileException)
+      it 'does now allow another upload' do
+        expect { subject.upload!(file) }.to raise_error(GridfsFile::GridFsFileException)
+      end
+    end
+
+    context 'when there is an error for sending file to mongodb' do
+      before { allow(Mongoid::GridFs).to receive(:put).and_raise(StandardError) }
+      it 'raise GridFsFileException error' do
+        expect { subject.upload!(file) }.to raise_error(GridfsFile::GridFsFileException)
       end
     end
   end
