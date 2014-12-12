@@ -26,7 +26,6 @@ class FilesController < ApplicationController
     begin
       @gridfs_file = GridfsFile.new(folder_id: folder_id, name: uploaded_io.original_filename)
       @gridfs_file.upload!(uploaded_io)
-      @gridfs_file.save!
       redirect_to folder_path(id: folder_id), notice: 'File uploaded successfully.'
     rescue StandardError => e
       redirect_to folder_path(id: folder_id), alert: e.message
