@@ -28,4 +28,4 @@ Future works:
 # Project Status
 
 ## Travis Build Status
-[![Build Status](https://travis-ci.org/ndd314/sjsu_cmpe295_server.svg?branch=master)](https://travis-ci.org/ndd314/sjsu_cmpe295_server)
+[![Build Status](https://travis-ci.org/ndd314/gridfs_manager.svg?branch=master)](https://travis-ci.org/ndd314/gridfs_manager)
